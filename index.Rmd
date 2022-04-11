@@ -1,5 +1,5 @@
 ---
-title: "SNMPTN 2021"
+title: "SNMPTN 2022"
 author: "Subbagian Registrasi"
 output: 
   flexdashboard::flex_dashboard:
@@ -229,23 +229,16 @@ div(plot_ly(type = "pie", labels = data$jns_sklh, values = data$banyak,
         insidetextorientation = "radial"), align = "center")
 ```
 
-### **Camaba berdasarkan penghasilan orang tua**
+### **Camaba berdasarkan akreditasi sekolah asal**
 
 ```{r}
 data <- db %>%
-  group_by(penghasilan, jk) %>%
-  summarize(tot = n())
-data <- data %>%
-  pivot_wider(names_from = jk, values_from = tot)
-data[is.na(data)] <- 0
-names(data) <- c("Penghasilan", "Laki-Laki", "Perempuan")
-#data$Pendidikan <- c("SD", "SLTP", "SLTA", "D3", "S1", "S2", "S3", "Tidak ada")
-data <- adorn_totals(data, where = c("col", "row"), name = "JML")
+  group_by(akreditasi) %>%
+  summarize(banyak = n())
 
-kable(data) %>%
-  kable_styling(bootstrap_options = "striped", full_width = F,
-                latex_options = "scale_down") %>%
-  add_header_above(c(" " = 1, "Jenis Kelamin" = 2, " " = 1))
+div(plot_ly(type = "pie", labels = data$akreditasi, values = data$banyak,
+        textinfo = "label+percent",
+        insidetextorientation = "radial"), align = "center")
 ```
 
 Progres Registrasi
@@ -334,10 +327,10 @@ kable(data, row.names = F) %>%
   pack_rows("Hukum", 1, 1, label_row_css = "background-color: #666; color: #fff;") %>%
   pack_rows("Keguruan dan Ilmu Pendidikan", 2, 19, label_row_css = "background-color: #666; color: #fff;") %>%
   pack_rows("Teknik", 20, 26, label_row_css = "background-color: #666; color: #fff;") %>%
-  pack_rows("Pertanian", 27, 30, label_row_css = "background-color: #666; color: #fff;") %>%
-  pack_rows("Ekonomi dan Bisnis", 31, 34, label_row_css = "background-color: #666; color: #fff;") %>%
-  pack_rows("Ilmu Sosial dan Ilmu Politik", 35, 37, label_row_css = "background-color: #666; color: #fff;") %>%
-  pack_rows("Kedokteran", 38, 41, label_row_css = "background-color: #666; color: #fff;")
+  pack_rows("Pertanian", 27, 31, label_row_css = "background-color: #666; color: #fff;") %>%
+  pack_rows("Ekonomi dan Bisnis", 32, 35, label_row_css = "background-color: #666; color: #fff;") %>%
+  pack_rows("Ilmu Sosial dan Ilmu Politik", 36, 38, label_row_css = "background-color: #666; color: #fff;") %>%
+  pack_rows("Kedokteran", 39, 42, label_row_css = "background-color: #666; color: #fff;")
 
 
 ```
@@ -438,8 +431,8 @@ data <- db %>%
   group_by(nama_sklh, kota_sklh, provinsi) %>%
   mutate(registrasi = replace_na(registrasi, "blm"),
          registrasi = ifelse(registrasi == "blm", 0, 1),
-         nim = replace_na(nim, "blm"),
-         nim = ifelse(nim == "blm", 0, 1)) %>%
+         #nim = replace_na(nim, "blm"),
+         nim = ifelse(is.na(nim), 0, 1)) %>%
   summarise(lulus = n(),
             registrasi = sum(registrasi),
             belum = lulus - registrasi,
