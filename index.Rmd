@@ -141,7 +141,7 @@ valueBox(
   value = paste(format(nim, big.mark = " "), " (", 
                 round(nim/nrow(db) * 100, 0), "% )",
                 sep = " "),
-  caption = "Mahasiswa Baru",
+  caption = "Sudah Punya NIM",
   icon = "fas fa-thumbs-up",
   color = "cornflowerblue"
 )
