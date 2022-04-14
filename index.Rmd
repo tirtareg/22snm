@@ -102,6 +102,20 @@ valueBox(
 )
 ```
 
+### penerima_kip {.value-box}
+
+```{r}
+#data <- filter(db, beasiswa == "KIP")
+valueBox(
+  value = paste(format(439, big.mark = " "), " (", 
+                round(439/nrow(db)*100, 0), "%)",
+                sep = ""),
+  caption = "Penerima KIP",
+  icon = "fas fa-hand-holding-usd",
+  color = "green"
+)
+```
+
 Row
 ---
 
@@ -440,7 +454,7 @@ data <- db %>%
   arrange(-mhs)
   
 
-names(data) <- c("Nama Sekolah", "Alamat Kota/Kab", "Alamat Provinsi", "Lulus SNMPTN", "Registrasi", "Tidak Registrasi", "Banyaknya Maba")
+names(data) <- c("Nama Sekolah", "Alamat Kota/Kab", "Alamat Provinsi", "Lulus SNMPTN", "Registrasi", "Tidak Registrasi", "Punya NIM")
 
 DT::datatable(data,
               rownames = F)#,
