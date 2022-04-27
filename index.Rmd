@@ -127,7 +127,7 @@ valueBox(
   value = paste(format(sudah, big.mark = " "), " (", 
                 round(sudah/nrow(db) * 100, 0), "% )",
                 sep = " "),
-  caption = "Registrasi",
+  caption = "Registrasi Berkas",
   icon = "fas fa-thumbs-up",
   color = "green"
 )
@@ -141,13 +141,13 @@ valueBox(
   value = paste(format(belum, big.mark = " "), " (", 
                 round(belum/nrow(db) * 100, 0), "% )",
                 sep = " "),
-  caption = "Tidak Registrasi",
+  caption = "Tidak Registrasi Berkas",
   icon = "fas fa-file-upload",
   color = "brown"
 )
 ```
 
-### belum {.value-box}
+### ukt {.value-box}
 
 ```{r}
 nim = nrow(filter(db, nim == "diterima"))
@@ -155,9 +155,23 @@ valueBox(
   value = paste(format(nim, big.mark = " "), " (", 
                 round(nim/nrow(db) * 100, 0), "% )",
                 sep = " "),
-  caption = "Sudah Punya NIM",
+  caption = "Registrasi UKT",
   icon = "fas fa-thumbs-up",
   color = "cornflowerblue"
+)
+```
+
+### tidak_ukt {.value-box}
+
+```{r}
+tdk_bayar <- sudah - nim
+valueBox(
+  value = paste(format(tdk_bayar, big.mark = " "), " (", 
+                round(tdk_bayar/nrow(db) * 100, 0), "% )",
+                sep = " "),
+  caption = "Tidak Registrasi UKT",
+  icon = "fas fa-file-upload",
+  color = "brown"
 )
 ```
 
