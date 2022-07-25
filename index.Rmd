@@ -6,6 +6,7 @@ output:
     orientation: rows
     vertical_layout: scroll
 ---
+
 ```{css eval=FALSE, include=FALSE}
 .chart-wrapper {
   overflow-x: scroll;
@@ -29,11 +30,9 @@ data <- db %>%
   summarize(minat = max(peminat))
 ```
 
-Ringkasan
-===
+# Ringkasan
 
-Row
------------------------------------------------------------------------
+## Row
 
 ### pendaftar {.value-box}
 
@@ -116,8 +115,7 @@ valueBox(
 )
 ```
 
-Row
----
+## Row
 
 ### verifikasi {.value-box}
 
@@ -175,8 +173,7 @@ valueBox(
 )
 ```
 
-Row
----
+## Row
 
 ### **Sebaran camaba di tiap fakultas**
 
@@ -208,6 +205,17 @@ kable(data) %>%
                 latex_options = "scale_down") %>%
   add_header_above(c(" " = 1, "Jenis Kelamin" = 2, " " = 1))
 
+library(downloadthis)
+
+data %>%
+  download_this(
+    output_name = "camaba_per_fakultas",
+    output_extension = ".xlsx",
+    button_label = "Download data",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
 ```
 
 ### **Camaba berdasarkan Provinsi asal**
@@ -227,11 +235,19 @@ kable(data) %>%
   kable_styling(bootstrap_options = "striped", full_width = F,
                 latex_options = "scale_down") %>%
   add_header_above(c(" " = 1, "Jenis Kelamin" = 2, " " = 1))
+
+data %>%
+  download_this(
+    output_name = "camaba_per_prov",
+    output_extension = ".xlsx",
+    button_label = "Download data",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
 ```
 
-
-Row
----
+## Row
 
 ### **Camaba berdasarkan kategori sekolah asal**
 
@@ -269,11 +285,9 @@ div(plot_ly(type = "pie", labels = data$akreditasi, values = data$banyak,
         insidetextorientation = "radial"), align = "center")
 ```
 
-Progres Registrasi
-===
+# Progres Registrasi
 
-row
----
+## row
 
 ### **Progres registrasi di setiap fakultas**
 
@@ -323,10 +337,19 @@ kable(data) %>%
                 latex_options = "scale_down") %>%
   add_header_above(c(" " = 4, "Registrasi" = 4, " " = 1))
 
+data %>%
+  download_this(
+    output_name = "progres_regis_per_fakultas",
+    output_extension = ".xlsx",
+    button_label = "Download data",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+
 ```
 
-row
----
+## row
 
 ### **Progres registrasi di setiap Program Studi**
 
@@ -361,13 +384,22 @@ kable(data, row.names = F) %>%
   pack_rows("Kedokteran", 39, 42, label_row_css = "background-color: #666; color: #fff;")
 
 
+data %>%
+  download_this(
+    output_name = "progres_reg_per_prodi",
+    output_extension = ".xlsx",
+    button_label = "Download data",
+    button_type = "warning",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+
+
 ```
 
-Camaba Registrasi
-===
+# Camaba Registrasi
 
-row
----
+## row
 
 ### Berikut adalah daftar nama calon mahasiswa baru Universitas Sultan Ageng Tirtayasa yang melakukan registrasi ulang di admisi.untirta.ac.id. (**gunakan Search untuk pencarian cepat**)
 
@@ -383,12 +415,11 @@ DT::datatable(data,
               #filter = "top")
 ```
 
-row 
------------------------------------------------------
+## row
 
 ### **Berikut adalah daftar sekolah asal dengan camaba BELUM selesai registrasi dimulai dari yang terbesar**
 
-```{r} 
+```{r}
 data <- db %>%
   group_by(nama_sklh, kota_sklh, provinsi) %>%
   mutate(registrasi = replace_na(registrasi, "blm"),
@@ -428,12 +459,9 @@ DT::datatable(data,
               #filter = "top")
 ```
 
+# Mahasiswa Baru
 
-Mahasiswa Baru
-===
-
-row
----
+## row
 
 ### Berikut adalah daftar nama mahasiswa baru Universitas Sultan Ageng Tirtayasa jalur SNMPTN. (**gunakan Search untuk pencarian cepat**)
 
@@ -449,8 +477,7 @@ DT::datatable(data,
               #filter = "top")
 ```
 
-row
----
+## row
 
 ### **Berikut adalah daftar sekolah asal mahasiswa baru Untirta**
 
